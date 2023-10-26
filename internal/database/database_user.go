@@ -35,18 +35,19 @@ func (db *DB) CreateUser(email, hashedPassword string) (User, error) {
 	return user, nil
 }
 
-func (db *DB) GetUsers() ([]User, error) {
+func (db *DB) GetUsers(email string) (User, error) {
 	dbStructure, err := db.loadDB()
 	if err != nil {
-		return nil, err
+		return User{}, err
 	}
 
-	users := make([]User, 0, len(dbStructure.Chirps))
-	for _, user := range dbStructure.Users {
-		users = append(users, user)
-	}
+    for _, user := range dbStructure.Users {
+        if user.Email == email {
+            return user, nil
+        }
+    }
 
-	return users, nil
+	return User{}, ErrNotExist
 }
 
 func (db *DB) GetUserID(id int) (User, error) {
@@ -71,6 +72,7 @@ func (db *DB) GetUserByEmail(email string) (User, error) {
 		return User{}, err
 	}
 
+
 	for _, user := range dbStructure.Users {
 		if user.Email == email {
 			return user, nil
@@ -79,3 +81,27 @@ func (db *DB) GetUserByEmail(email string) (User, error) {
 
 	return User{}, ErrNotExist
 }
+
+func (db *DB) UpdateUser(id int, email, hashedPassword string) (User, error) {
+	dbStructure, err := db.loadDB()
+	if err != nil {
+		return User{}, err
+	}
+
+	user, ok := dbStructure.Users[id]
+	if !ok {
+		return User{}, ErrNotExist
+	}
+
+	user.Email = email
+	user.HashedPassword = hashedPassword
+	dbStructure.Users[id] = user
+
+	err = db.writeDB(dbStructure)
+	if err != nil {
+		return User{}, err
+	}
+
+	return user, nil
+}
+
