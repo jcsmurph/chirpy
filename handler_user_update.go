@@ -22,19 +22,30 @@ func (cfg *apiConfig) handlerUsersUpdate(w http.ResponseWriter, r *http.Request)
 		respondWithError(w, http.StatusUnauthorized, "Couldn't find JWT")
 		return
 	}
-	subject, err := auth.ValidateJWT(token, cfg.JwtSecret)
+
+    decoder := json.NewDecoder(r.Body)
+	params := parameters{}
+	err = decoder.Decode(&params)
+	if err != nil {
+		respondWithError(w, http.StatusInternalServerError, "Couldn't decode parameters for User Update handler")
+		return
+	}
+
+
+	subject, err := auth.ValidateJWT(token, cfg.jwtSecret)
 	if err != nil {
 		respondWithError(w, http.StatusUnauthorized, "Couldn't validate JWT")
 		return
 	}
 
-	decoder := json.NewDecoder(r.Body)
-	params := parameters{}
-	err = decoder.Decode(&params)
-	if err != nil {
-		respondWithError(w, http.StatusInternalServerError, "Couldn't decode parameters")
+	validAccessToken := auth.ValidateAccessToken(token, cfg.jwtSecret)
+
+	if validAccessToken != nil {
+		respondWithError(w, http.StatusUnauthorized, "Token is not an access token")
 		return
 	}
+
+
 
 	hashedPassword, err := auth.HashPassword(params.Password)
 	if err != nil {

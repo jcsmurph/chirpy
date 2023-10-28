@@ -14,7 +14,7 @@ import (
 type apiConfig struct {
 	fileserverHits int
 	DB             *database.DB
-    JwtSecret string
+    jwtSecret string
 }
 
 func main() {
@@ -34,26 +34,35 @@ func main() {
 	apiCfg := apiConfig{
 		fileserverHits: 0,
 		DB:             db,
-        JwtSecret: jwtSecret,
+        jwtSecret: jwtSecret,
 	}
 	router := chi.NewRouter()
 	fsHandler := apiCfg.middlewareMetricsInc(http.StripPrefix("/app", http.FileServer(http.Dir(serverFilePath))))
 
+    // Index Handlers
 	router.Handle("/app", fsHandler)
 	router.Handle("/app/*", fsHandler)
 
+    // Metrics Handlers
 	apiRouter := chi.NewRouter()
 	apiRouter.Get("/healthz", handlerReadiness)
 	apiRouter.Get("/reset", apiCfg.handlerReset)
 
+    // Login Handlers
 	apiRouter.Post("/login", apiCfg.handlerLogin)
 
+    // Chirp Handlers
 	apiRouter.Post("/chirps", apiCfg.handlerChirpsCreate)
 	apiRouter.Get("/chirps", apiCfg.handlerChirpsRetrieve)
 	apiRouter.Get("/chirps/{chirpID}", apiCfg.handlerChirpsGet)
 
+    // User Handlers
 	apiRouter.Post("/users", apiCfg.handlerUsersCreate)
 	apiRouter.Put("/users", apiCfg.handlerUsersUpdate)
+
+    // Token Handlers
+	apiRouter.Post("/refresh", apiCfg.handlerRefreshToken)
+	apiRouter.Post("/revoke", apiCfg.handlerRevokeToken)
 
 	router.Mount("/api", apiRouter)
 
