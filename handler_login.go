@@ -14,6 +14,8 @@ func (cfg *apiConfig) handlerLogin(w http.ResponseWriter, r *http.Request) {
 	}
 	type response struct {
 		User
+		AccessToken string `json:"token"`
+		RefreshToken string `json:"refresh_token"`
 	}
     decoder := json.NewDecoder(r.Body)
 	params := parameters{}
@@ -35,6 +37,7 @@ func (cfg *apiConfig) handlerLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	accessToken, refreshToken, err := auth.MakeJWT(user.ID, cfg.jwtSecret)
 
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, "Couldn't create JWT")
@@ -47,5 +50,7 @@ func (cfg *apiConfig) handlerLogin(w http.ResponseWriter, r *http.Request) {
 			Email: user.Email,
             Redchirpy: user.RedChirpy,
 		},
+		AccessToken: accessToken,
+		RefreshToken: refreshToken,
 	})
 }

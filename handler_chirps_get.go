@@ -15,41 +15,63 @@ func (cfg *apiConfig) handlerChirpsRetrieve(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	chirps := []Chirp{}
-	for _, dbChirp := range dbChirps {
-		chirps = append(chirps, Chirp{
-			ID:   dbChirp.ID,
-			Body: dbChirp.Body,
-            AuthorID: dbChirp.AuthorID,
-		})
-	}
+	authorID := r.URL.Query().Get("author_id")
+	sortOrder := r.URL.Query().Get("sort")
 
-	sort.Slice(chirps, func(i, j int) bool {
-		return chirps[i].ID < chirps[j].ID
-	})
+	chirps := []Chirp{}
+	if authorID != "" {
+		intAuthorID, _ := strconv.Atoi(authorID)
+		for _, dbChirp := range dbChirps {
+			if dbChirp.AuthorID == intAuthorID {
+				chirps = append(chirps, Chirp{
+					ID:       dbChirp.ID,
+					Body:     dbChirp.Body,
+					AuthorID: dbChirp.AuthorID,
+				})
+			}
+		}
+	} else {
+		for _, dbChirp := range dbChirps {
+			chirps = append(chirps, Chirp{
+				ID:       dbChirp.ID,
+				Body:     dbChirp.Body,
+				AuthorID: dbChirp.AuthorID,
+			})
+		}
+	}
+	if sortOrder == "desc" {
+		sort.Slice(chirps, func(i, j int) bool {
+			return chirps[i].ID > chirps[j].ID
+		})
+	} else {
+
+        sort.Slice(chirps, func(i, j int) bool {
+            return chirps[i].ID < chirps[j].ID
+        })
+    }
 
 	respondWithJSON(w, http.StatusOK, chirps)
 }
 
 func (cfg *apiConfig) handlerChirpsGet(w http.ResponseWriter, r *http.Request) {
-    chirpIDString := chi.URLParam(r, "chirpID")
-    chirpID, err := strconv.Atoi(chirpIDString)
+	chirpIDString := chi.URLParam(r, "chirpID")
+	chirpID, err := strconv.Atoi(chirpIDString)
 
-    if err != nil {
-        respondWithError(w, http.StatusBadRequest, "Invalid Chirp ID")
-        return
-    }
+	if err != nil {
+		respondWithError(w, http.StatusBadRequest, "Invalid Chirp ID")
+		return
+	}
 
-    dbChirp, err := cfg.DB.GetChirpID(chirpID)
+	dbChirp, err := cfg.DB.GetChirpID(chirpID)
 
-    if err != nil {
-        respondWithError(w, http.StatusNotFound, "Couldn't get chirp")
-        return
-    }
+	if err != nil {
+		respondWithError(w, http.StatusNotFound, "Couldn't get chirp")
+		return
+	}
 
-    respondWithJSON(w, http.StatusOK, Chirp {
-        ID: dbChirp.ID,
-        Body: dbChirp.Body,
-        AuthorID: dbChirp.AuthorID,
-    })
+	respondWithJSON(w, http.StatusOK, Chirp{
+		ID:       dbChirp.ID,
+		Body:     dbChirp.Body,
+		AuthorID: dbChirp.AuthorID,
+	})
 }
