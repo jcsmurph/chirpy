@@ -51,6 +51,6 @@ func (cfg *apiConfig) handlerChirpDelete(w http.ResponseWriter, r *http.Request)
         respondWithError(w, http.StatusForbidden, "The user is not authorized to delete the chirp")
     }
 
-	respondWithJSON(w, http.StatusOK, Chirp{})
+	respondWithStatus(w, http.StatusOK)
 
 }

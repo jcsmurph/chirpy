@@ -14,15 +14,12 @@ func (cfg *apiConfig) handlerLogin(w http.ResponseWriter, r *http.Request) {
 	}
 	type response struct {
 		User
-		AccessToken string `json:"token"`
-		RefreshToken string `json:"refresh_token"`
 	}
-
-	decoder := json.NewDecoder(r.Body)
+    decoder := json.NewDecoder(r.Body)
 	params := parameters{}
-	err := decoder.Decode(&params)
+    err := decoder.Decode(&params)
 	if err != nil {
-		respondWithError(w, http.StatusInternalServerError, "Couldn't decode parameters for Login Handler")
+		respondWithError(w, http.StatusInternalServerError, "Couldn't decode parameters for User Update handler")
 		return
 	}
 
@@ -38,7 +35,6 @@ func (cfg *apiConfig) handlerLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	accessToken, refreshToken, err := auth.MakeJWT(user.ID, cfg.jwtSecret)
 
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, "Couldn't create JWT")
@@ -49,8 +45,7 @@ func (cfg *apiConfig) handlerLogin(w http.ResponseWriter, r *http.Request) {
 		User: User{
 			ID:    user.ID,
 			Email: user.Email,
+            Redchirpy: user.RedChirpy,
 		},
-		AccessToken: accessToken,
-		RefreshToken: refreshToken,
 	})
 }

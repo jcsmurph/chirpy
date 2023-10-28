@@ -13,6 +13,7 @@ type User struct {
 	ID       int    `json:"id"`
 	Email    string `json:"email"`
 	Password string `json:"-"`
+    Redchirpy bool `json:"is_chirpy_red"`
 }
 
 func (cfg *apiConfig) handlerUsersCreate(w http.ResponseWriter, r *http.Request) {
@@ -20,7 +21,6 @@ func (cfg *apiConfig) handlerUsersCreate(w http.ResponseWriter, r *http.Request)
 		Email    string `json:"email"`
 		Password string `json:"password"`
 	}
-
 	type response struct {
 		User
 	}
@@ -54,5 +54,6 @@ func (cfg *apiConfig) handlerUsersCreate(w http.ResponseWriter, r *http.Request)
 		User: User{
 			ID:    user.ID,
 			Email: user.Email,
+            Redchirpy: user.RedChirpy,
 		}})
 }

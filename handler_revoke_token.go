@@ -12,9 +12,9 @@ func (cfg *apiConfig) handlerRevokeToken(w http.ResponseWriter, r *http.Request)
 		Password string `json:"password"`
 	}
 
-    type response struct {
-        Token string `json:"token"`
-    }
+	type response struct {
+		Token string `json:"token"`
+	}
 
 	token, err := auth.GetBearerToken(r.Header)
 	if err != nil {
@@ -22,13 +22,12 @@ func (cfg *apiConfig) handlerRevokeToken(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-    revokeErr := cfg.DB.RevokeToken(token)
+	revokeErr := cfg.DB.RevokeToken(token)
 
-    if revokeErr != nil {
-        respondWithError(w, http.StatusInternalServerError, "Unable to revoke token")
+	if revokeErr != nil {
+		respondWithError(w, http.StatusInternalServerError, "Unable to revoke token")
 		return
-    }
+	}
 
-
-	respondWithJSON(w, http.StatusOK, response{})
+	respondWithStatus(w, http.StatusOK)
 }

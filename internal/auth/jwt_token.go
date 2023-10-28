@@ -17,41 +17,40 @@ type JwtClaim struct {
 }
 
 func MakeJWT(userID int, tokenSecret string) (string, string, error) {
-    // Access Token
+	// Access Token
 	mySigningKey := []byte(tokenSecret)
-		access_claims := JwtClaim{
-			jwt.RegisteredClaims{
-				ExpiresAt: jwt.NewNumericDate(time.Now().UTC().Add(time.Duration(1 * time.Hour))),
-				IssuedAt:  jwt.NewNumericDate(time.Now().UTC()),
-				Issuer:    "chirpy-access",
-				Subject:   fmt.Sprintf("%d", userID),
-			},
-		}
+	access_claims := JwtClaim{
+		jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().UTC().Add(time.Duration(1 * time.Hour))),
+			IssuedAt:  jwt.NewNumericDate(time.Now().UTC()),
+			Issuer:    "chirpy-access",
+			Subject:   fmt.Sprintf("%d", userID),
+		},
+	}
 
-		accessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, access_claims)
-		accessSS, err := accessToken.SignedString(mySigningKey)
+	accessToken := jwt.NewWithClaims(jwt.SigningMethodHS256, access_claims)
+	accessSS, err := accessToken.SignedString(mySigningKey)
 
-		if err != nil {
-			return "", "", err
-		}
+	if err != nil {
+		return "", "", err
+	}
 
+	// Refresh Token
+	refreshClaims := JwtClaim{
+		jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().UTC().Add(time.Duration(1440 * time.Hour))),
+			IssuedAt:  jwt.NewNumericDate(time.Now().UTC()),
+			Issuer:    "chirpy-refresh",
+			Subject:   fmt.Sprintf("%d", userID),
+		},
+	}
 
-    // Refresh Token
-		refreshClaims := JwtClaim{
-			jwt.RegisteredClaims{
-				ExpiresAt: jwt.NewNumericDate(time.Now().UTC().Add(time.Duration(1440 * time.Hour))),
-				IssuedAt:  jwt.NewNumericDate(time.Now().UTC()),
-				Issuer:    "chirpy-refresh",
-				Subject:   fmt.Sprintf("%d", userID),
-			},
-		}
+	refreshToken := jwt.NewWithClaims(jwt.SigningMethodHS256, refreshClaims)
+	refreshSS, err := refreshToken.SignedString(mySigningKey)
 
-		refreshToken := jwt.NewWithClaims(jwt.SigningMethodHS256, refreshClaims)
-		refreshSS, err := refreshToken.SignedString(mySigningKey)
-
-		if err != nil {
-			return "", "", err
-		}
+	if err != nil {
+		return "", "", err
+	}
 
 	return accessSS, refreshSS, nil
 }
@@ -63,7 +62,7 @@ func ValidateJWT(tokenString, tokenSecret string) (string, error) {
 		&claimsStruct,
 		func(token *jwt.Token) (interface{}, error) { return []byte(tokenSecret), nil },
 	)
-    if err != nil {
+	if err != nil {
 		return "", err
 	}
 
@@ -97,18 +96,14 @@ func ValidateAccessToken(tokenString, tokenSecret string) error {
 		func(token *jwt.Token) (interface{}, error) { return []byte(tokenSecret), nil },
 	)
 
-    if err != nil {
+	if err != nil {
 		return err
 	}
-    tokenIssuer, err := token.Claims.GetIssuer()
-    if tokenIssuer != "chirpy-access" {
-        return errors.New("Not an access token")
-    }
+	tokenIssuer, err := token.Claims.GetIssuer()
+	if tokenIssuer != "chirpy-access" {
+		return errors.New("Not an access token")
+	}
 
-    return nil
+	return nil
 }
-
-
-
-
 

@@ -15,6 +15,7 @@ type apiConfig struct {
 	fileserverHits int
 	DB             *database.DB
     jwtSecret string
+    polkaSecret string
 }
 
 func main() {
@@ -26,6 +27,10 @@ func main() {
     if jwtSecret == " "{
         log.Fatal("JWT_Secret env variable is not set")
     }
+    polkaSecret := os.Getenv("POLKA_SECRET")
+    if polkaSecret == " "{
+        log.Fatal("Polka_Secret env variable is not set")
+    }
 	db, err := database.NewDB("database.json")
 
 	if err != nil {
@@ -35,6 +40,7 @@ func main() {
 		fileserverHits: 0,
 		DB:             db,
         jwtSecret: jwtSecret,
+        polkaSecret: polkaSecret,
 	}
 	router := chi.NewRouter()
 	fsHandler := apiCfg.middlewareMetricsInc(http.StripPrefix("/app", http.FileServer(http.Dir(serverFilePath))))
@@ -64,6 +70,9 @@ func main() {
     // Token Handlers
 	apiRouter.Post("/refresh", apiCfg.handlerRefreshToken)
 	apiRouter.Post("/revoke", apiCfg.handlerRevokeToken)
+
+    // Payment Webhook
+    apiRouter.Post("/polka/webhooks", apiCfg.handlerUpgradeUser)
 
 	router.Mount("/api", apiRouter)
 
