@@ -3,9 +3,9 @@ package database
 import "errors"
 
 type Chirp struct {
-	ID   int    `json:"id"`
-	Body string `json:"body"`
-    AuthorID int `json:"author_id"`
+	ID       int    `json:"id"`
+	Body     string `json:"body"`
+	AuthorID int    `json:"author_id"`
 }
 
 func (db *DB) CreateChirp(body string, authorID int) (Chirp, error) {
@@ -16,9 +16,9 @@ func (db *DB) CreateChirp(body string, authorID int) (Chirp, error) {
 
 	id := len(dbStructure.Chirps) + 1
 	chirp := Chirp{
-		ID:   id,
-		Body: body,
-        AuthorID: authorID,
+		ID:       id,
+		Body:     body,
+		AuthorID: authorID,
 	}
 	dbStructure.Chirps[id] = chirp
 
@@ -58,4 +58,24 @@ func (db *DB) GetChirpID(id int) (Chirp, error) {
 
 	return chirp, nil
 
+}
+
+func (db *DB) DeleteChirp(chirpID, authorID int) error {
+
+	dbStructure, dbErr := db.loadDB()
+	if dbErr != nil {
+		return dbErr
+	}
+
+	for id, chirp := range dbStructure.Chirps {
+		if chirpID == chirp.ID {
+			if authorID == chirp.AuthorID {
+                delete(dbStructure.Chirps, id)
+                return nil
+			} else {
+                return errors.New("User is not the Author of the chirp")
+			}
+		}
+	}
+	return errors.New("Chirp does not exist")
 }

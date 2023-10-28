@@ -27,6 +27,11 @@ func (cfg *apiConfig) handlerChirpsCreate(w http.ResponseWriter, r *http.Request
 
 	validAccessToken := auth.ValidateAccessToken(token, cfg.jwtSecret)
 
+	if validAccessToken != nil {
+		respondWithError(w, http.StatusUnauthorized, "Token is not an access token")
+		return
+	}
+
 	subject, err := auth.ValidateJWT(token, cfg.jwtSecret)
 	if err != nil {
 		respondWithError(w, http.StatusUnauthorized, "Couldn't validate JWT")
@@ -37,11 +42,6 @@ func (cfg *apiConfig) handlerChirpsCreate(w http.ResponseWriter, r *http.Request
 
 	if err != nil {
 		respondWithError(w, http.StatusUnauthorized, "Unable to convert ID from string to integer")
-		return
-	}
-
-	if validAccessToken != nil {
-		respondWithError(w, http.StatusUnauthorized, "Token is not an access token")
 		return
 	}
 
