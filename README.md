@@ -2,28 +2,42 @@
 
 A twitter clone backend built using Golang. To run, use go build --o && ./out and navigate to localhost:8080/app in your browser.
 
-To run certain APIs, you will need to generate your own JWT Secret to retrieve an ACCESS and refresh token. A fake polka secret can be created to run the API to upgrade a user to a paid subscription. Both tokens need to be added to a local .env file.
+To run certain APIs, you will need to generate your own JWT Secret to retrieve an access and refresh token. A fake polka secret can be created to run the API to upgrade a user to a paid subscription. Both tokens need to be added to a local .env file.
+
+## Supported features
+- Create a User
+- Login with a User
+- Update a User
+- Create a chirp
+- Retrieve Chirps (with optional author and sort)
+- Retrieve chirp by ID
+- Delete a Chirp
+- Upgrade a user with a fake payment webhook
+- See site visits metric
+- Reset site visits metric
 
 ## It currently supports the following APIs:
 
 - User Create (POST localhost:8080/api/users)  
-  Body:
+  Body:  
   {  
   "email": your email,  
   "password": your password"  
   }  
   Returns:  
+  {  
   "ID": your userID  
   "email": your email  
   "is_red_chirpy": false  
   }  
 - User Login (POST localhost:8080/api/login)  
-  Body:
+  Body:  
   {  
   "email": your email,  
   "password": your password"  
   }  
-  Returns:  
+  Returns:
+  {  
   "ID": your userID  
   "email": your email  
   "is_red_chirpy": false  
@@ -43,13 +57,13 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   }  
 
 - User Upgrade (PUT localhost:8080/polka/webhooks)  
-  Body:  {   
-    {  {   
-    "data": {  {   
-      "user_id": 1  {   
-      },  {   
-      "event": "user.upgraded"  {   
-    }
+  Body:   
+    {  
+  "data": {  
+    "user_id": 1  
+  },  
+  "event": "user.payment_failed"  
+}  
    
   Returns:  
   Status code 200  
@@ -93,11 +107,7 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   "Authorization": Bearer your ACCESS token
   }  
   Returns:  
-  {  
-  "ID": chirpID  
-  "Body": the chirp  
-  "AuthorID": AuthorID of the chirp  
-  }  
+  Status code 200  
 
 - Retrieve new ACCESS token (DELETE localhost:8080/api/refresh)  
   Header: {  
@@ -115,11 +125,7 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   "Authorization": Bearer your REFRESH token
   }  
   Returns:  
-  {  
-  "ID": chirpID  
-  "Body": the chirp  
-  "AuthorID": AuthorID of the chirp  
-  }  
+  Status code 200  
 
   - Metrics (localhost:8080/api/healthz)  
   This API tracks the number of visits the site has had  
