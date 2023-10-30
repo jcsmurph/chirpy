@@ -110,7 +110,7 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
 - Chirp Delete by ID (DELETE localhost:8080/api/chirps/{chirpID})  
   Header:  
   {  
-  "Authorization": Bearer your ACCESS token
+  "Authorization": Bearer your ACCESS token  
   }  
   Returns:  
   Status code 200  
@@ -118,7 +118,7 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
 - Retrieve new ACCESS token (DELETE localhost:8080/api/refresh)  
   Header:  
   {  
-  "Authorization": Bearer your REFRESH token
+  "Authorization": Bearer your REFRESH token  
   }  
   Returns:  
   {  
