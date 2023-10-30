@@ -7,7 +7,8 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
 ## It currently supports the following APIs:
 
 - User Create (POST localhost:8080/api/users)  
-  Body:  
+  Body:
+  {  
   "email": your email,  
   "password": your password"  
   }  
@@ -17,7 +18,8 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   "is_red_chirpy": false  
   }  
 - User Login (POST localhost:8080/api/login)  
-  Body:  
+  Body:
+  {  
   "email": your email,  
   "password": your password"  
   }  
