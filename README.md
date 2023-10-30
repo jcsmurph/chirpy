@@ -69,7 +69,8 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   Status code 200  
 
 - Chirp Create (POST localhost:8080/api/chirps)  
-  Header: {  
+  Header:  
+  {  
   "Authorization": Bearer your ACCESS token  
   }  
   Returns:
@@ -80,7 +81,8 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   }  
 
 - Chirp Retrieve all or by author ID (GET localhost:8080/api/chirps?author_id=?sort=?)  
-  Header: {  
+  Header:  
+  {  
   "Authorization": Bearer your ACCESS token  
   }  
   Returns:
@@ -91,7 +93,8 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   }  
 
 - Chirp Retrieve by ID (GET localhost:8080/api/chirps/{chirpID})  
-  Header: {  
+  Header:  
+  {  
   "Authorization": Bearer your ACCESS token  
   }   
 
@@ -103,14 +106,16 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   }  
 
 - Chirp Delete by ID (DELETE localhost:8080/api/chirps/{chirpID})  
-  Header: {  
+  Header:  
+  {  
   "Authorization": Bearer your ACCESS token
   }  
   Returns:  
   Status code 200  
 
 - Retrieve new ACCESS token (DELETE localhost:8080/api/refresh)  
-  Header: {  
+  Header:  
+  {  
   "Authorization": Bearer your REFRESH token
   }  
   Returns:  
@@ -118,7 +123,7 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   "ID": chirpID  
   "Body": the chirp  
   "AuthorID": AuthorID of the chirp  
-  }
+  }  
   
 - Revoke REFRESH token (DELETE localhost:8080/api/revoke)  
   Header:  
