@@ -46,7 +46,8 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   }  
 
 - User Update (PUT localhost:8080/api/users)  
-  Header: {  
+  Header:  
+  {  
   "Authorization": Bearer your ACCESS token
   }  
   Returns:
@@ -57,10 +58,11 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   }  
 
 - User Upgrade (PUT localhost:8080/polka/webhooks)  
-  Body:   
+  Body:  
     {  
-  "data": {  
-    "user_id": 1  
+    "data":  
+  {  
+      "user_id": 1  
   },  
   "event": "user.payment_failed"  
 }  
@@ -73,7 +75,7 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   {  
   "Authorization": Bearer your ACCESS token  
   }  
-  Returns:
+  Returns:  
   {  
   "ID": chirpID  
   "Body": the chirp  
@@ -85,7 +87,7 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   {  
   "Authorization": Bearer your ACCESS token  
   }  
-  Returns:
+  Returns:  
   {  
   "ID": chirpID  
   "Body": the chirp  
@@ -137,21 +139,4 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   This API tracks the number of visits the site has had  
 
 - Reset metrics (localhost:8080/api/reset)  
-  This will reset the visits metric
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
+  This will reset the visits metric  
