@@ -120,17 +120,17 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   "AuthorID": AuthorID of the chirp  
   }
   
-  - Revoke REFRESH token (DELETE localhost:8080/api/revoke)  
+- Revoke REFRESH token (DELETE localhost:8080/api/revoke)  
   Header: {  
   "Authorization": Bearer your REFRESH token
   }  
   Returns:  
   Status code 200  
 
-  - Metrics (localhost:8080/api/healthz)  
+- Metrics (localhost:8080/api/healthz)  
   This API tracks the number of visits the site has had  
 
-  - Reset metrics (localhost:8080/api/reset)  
+- Reset metrics (localhost:8080/api/reset)  
   This will reset the visits metric
 
 
