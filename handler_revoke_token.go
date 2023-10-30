@@ -7,10 +7,6 @@ import (
 )
 
 func (cfg *apiConfig) handlerRevokeToken(w http.ResponseWriter, r *http.Request) {
-	type parameters struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
-	}
 
 	type response struct {
 		Token string `json:"token"`
