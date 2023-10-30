@@ -36,7 +36,7 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   "email": your email,  
   "password": your password"  
   }  
-  Returns:
+  Returns:  
   {  
   "ID": your userID  
   "email": your email  
@@ -50,7 +50,7 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   {  
   "Authorization": Bearer your ACCESS token
   }  
-  Returns:
+  Returns:  
   {  
   "ID": your userID  
   "email": your email  
