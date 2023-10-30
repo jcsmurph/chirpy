@@ -1,20 +1,143 @@
 # chirpy
 
-A twitter clone built using Golang. To run, use go build --o && ./out and navigate to localhost:8080/app in your browser
+A twitter clone backend built using Golang. To run, use go build --o && ./out and navigate to localhost:8080/app in your browser.
+
+To run certain APIs, you will need to generate your own JWT Secret to retrieve an ACCESS and refresh token. A fake polka secret can be created to run the API to upgrade a user to a paid subscription. Both tokens need to be added to a local .env file.
 
 ## It currently supports the following APIs:
 
-- User Create (POST localhost:8080/api/users)
-  <br />
-  JSON Body:
-  {<br />
-  "email": your email, <br />
-  "password": your password" <br />
-  }<br />
-<br />
+- User Create (POST localhost:8080/api/users)  
+  Body:  
+  "email": your email,  
+  "password": your password"  
+  }  
+  Returns:  
+  "ID": your userID  
+  "email": your email  
+  "is_red_chirpy": false  
+  }  
+- User Login (POST localhost:8080/api/login)  
+  Body:  
+  "email": your email,  
+  "password": your password"  
+  }  
+  Returns:  
+  "ID": your userID  
+  "email": your email  
+  "is_red_chirpy": false  
+  "token": your ACCESS token  
+  "refresh token": your refresh token  
+  }  
+
+- User Update (PUT localhost:8080/api/users)  
+  Header: {  
+  "Authorization": Bearer your ACCESS token
+  }  
   Returns:
-  {<br />
-  "ID": your userID <br />
-  "email": your email <br />
-  "is_red_chirpy": false <br />
-  }<br />
+  {  
+  "ID": your userID  
+  "email": your email  
+  "is_red_chirpy": false  
+  }  
+
+- User Upgrade (PUT localhost:8080/polka/webhooks)  
+  Body:  {   
+    {  {   
+    "data": {  {   
+      "user_id": 1  {   
+      },  {   
+      "event": "user.upgraded"  {   
+    }
+   
+  Returns:  
+  Status code 200  
+
+- Chirp Create (POST localhost:8080/api/chirps)  
+  Header: {  
+  "Authorization": Bearer your ACCESS token  
+  }  
+  Returns:
+  {  
+  "ID": chirpID  
+  "Body": the chirp  
+  "AuthorID": AuthorID of the chirp  
+  }  
+
+- Chirp Retrieve all or by author ID (GET localhost:8080/api/chirps?author_id=?sort=?)  
+  Header: {  
+  "Authorization": Bearer your ACCESS token  
+  }  
+  Returns:
+  {  
+  "ID": chirpID  
+  "Body": the chirp  
+  "AuthorID": AuthorID of the chirp  
+  }  
+
+- Chirp Retrieve by ID (GET localhost:8080/api/chirps/{chirpID})  
+  Header: {  
+  "Authorization": Bearer your ACCESS token  
+  }   
+
+  Returns:  
+  {  
+  "ID": chirpID  
+  "Body": the chirp  
+  "AuthorID": AuthorID of the chirp  
+  }  
+
+- Chirp Delete by ID (DELETE localhost:8080/api/chirps/{chirpID})  
+  Header: {  
+  "Authorization": Bearer your ACCESS token
+  }  
+  Returns:  
+  {  
+  "ID": chirpID  
+  "Body": the chirp  
+  "AuthorID": AuthorID of the chirp  
+  }  
+
+- Retrieve new ACCESS token (DELETE localhost:8080/api/refresh)  
+  Header: {  
+  "Authorization": Bearer your REFRESH token
+  }  
+  Returns:  
+  {  
+  "ID": chirpID  
+  "Body": the chirp  
+  "AuthorID": AuthorID of the chirp  
+  }
+  
+  - Revoke REFRESH token (DELETE localhost:8080/api/revoke)  
+  Header: {  
+  "Authorization": Bearer your REFRESH token
+  }  
+  Returns:  
+  {  
+  "ID": chirpID  
+  "Body": the chirp  
+  "AuthorID": AuthorID of the chirp  
+  }  
+
+  - Metrics (localhost:8080/api/healthz)  
+  This API tracks the number of visits the site has had  
+
+  - Reset metrics (localhost:8080/api/reset)  
+  This will reset the visits metric
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
