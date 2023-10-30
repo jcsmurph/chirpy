@@ -10,6 +10,7 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
 
 ## Supported features
 - Create a User
+- Password hashing
 - Login with a User
 - Update a User
 - Create a chirp
