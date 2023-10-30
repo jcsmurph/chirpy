@@ -121,8 +121,9 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   }
   
 - Revoke REFRESH token (DELETE localhost:8080/api/revoke)  
-  Header: {  
-  "Authorization": Bearer your REFRESH token
+  Header:  
+  {  
+  "Authorization": Bearer your REFRESH token  
   }  
   Returns:  
   Status code 200  
