@@ -3,8 +3,10 @@
 A twitter clone backend built using Golang. To run, use go build --o && ./out and navigate to localhost:8080/app in your browser.
 
 To run certain APIs, you will need to generate your own JWT Secret to retrieve an access and refresh token. A fake polka secret can be created to run the API to upgrade a user to a paid subscription. Both tokens need to be added to a local .env file.  
-- JWT_SECRET
-- POLKA_SECRET
+
+## .env variables
+- JWT_SECRET=
+- POLKA_SECRET=
 
 ## Supported features
 - Create a User
@@ -18,7 +20,7 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
 - See site visits metric
 - Reset site visits metric
 
-## It currently supports the following APIs:
+## Supported APIs:
 
 - User Create (POST localhost:8080/api/users)  
   Body:  
