@@ -23,7 +23,8 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
 
 ## Supported APIs:
 
-- User Create (POST localhost:8080/api/users)  
+- User Create (POST localhost:8080/api/users)
+```
   Body:  
   {  
   "email": your email,  
@@ -34,7 +35,9 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   "ID": your userID  
   "email": your email  
   "is_red_chirpy": false  
-  }  
+  }
+
+```
 - User Login (POST localhost:8080/api/login)  
   Body:  
   {  
