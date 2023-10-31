@@ -38,7 +38,9 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   }
 
 ```
-- User Login (POST localhost:8080/api/login)  
+
+- User Login (POST localhost:8080/api/login)
+```
   Body:  
   {  
   "email": your email,  
@@ -52,8 +54,9 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   "token": your ACCESS token  
   "refresh token": your refresh token  
   }  
-
-- User Update (PUT localhost:8080/api/users)  
+```
+- User Update (PUT localhost:8080/api/users)
+```
   Header:  
   {  
   "Authorization": Bearer your ACCESS token
@@ -63,22 +66,24 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   "ID": your userID  
   "email": your email  
   "is_red_chirpy": false  
-  }  
-
-- User Upgrade (PUT localhost:8080/polka/webhooks)  
+  }
+```
+- User Upgrade (PUT localhost:8080/polka/webhooks)
+```
   Body:  
     {  
     "data":  
-  {  
-      "user_id": 1  
-  },  
-  "event": "user.payment_failed"  
+          {  
+            "user_id": 1  
+          },  
+    "event": "user.payment_failed"  
 }  
    
   Returns:  
   Status code 200  
-
-- Chirp Create (POST localhost:8080/api/chirps)  
+```
+- Chirp Create (POST localhost:8080/api/chirps)
+```
   Header:  
   {  
   "Authorization": Bearer your ACCESS token  
@@ -89,8 +94,9 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   "Body": the chirp  
   "AuthorID": AuthorID of the chirp  
   }  
-
-- Chirp Retrieve all or by author ID (GET localhost:8080/api/chirps?author_id=?sort=?)  
+```
+- Chirp Retrieve all or by author ID (GET localhost:8080/api/chirps?author_id=?sort=?)
+```
   Header:  
   {  
   "Authorization": Bearer your ACCESS token  
@@ -101,8 +107,9 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   "Body": the chirp  
   "AuthorID": AuthorID of the chirp  
   }  
-
-- Chirp Retrieve by ID (GET localhost:8080/api/chirps/{chirpID})  
+```
+- Chirp Retrieve by ID (GET localhost:8080/api/chirps/{chirpID})
+```
   Header:  
   {  
   "Authorization": Bearer your ACCESS token  
@@ -114,16 +121,18 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   "Body": the chirp  
   "AuthorID": AuthorID of the chirp  
   }  
-
-- Chirp Delete by ID (DELETE localhost:8080/api/chirps/{chirpID})  
+```  
+- Chirp Delete by ID (DELETE localhost:8080/api/chirps/{chirpID})
+```
   Header:  
   {  
   "Authorization": Bearer your ACCESS token  
   }  
   Returns:  
   Status code 200  
-
-- Retrieve new ACCESS token (DELETE localhost:8080/api/refresh)  
+```
+- Retrieve new ACCESS token (DELETE localhost:8080/api/refresh)
+```
   Header:  
   {  
   "Authorization": Bearer your REFRESH token  
@@ -134,15 +143,16 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   "Body": the chirp  
   "AuthorID": AuthorID of the chirp  
   }  
-  
-- Revoke REFRESH token (DELETE localhost:8080/api/revoke)  
+```
+- Revoke REFRESH token (DELETE localhost:8080/api/revoke)
+```
   Header:  
   {  
   "Authorization": Bearer your REFRESH token  
   }  
   Returns:  
   Status code 200  
-
+```
 - Metrics (localhost:8080/api/healthz)  
   This API tracks the number of visits the site has had  
 
