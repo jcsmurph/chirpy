@@ -29,8 +29,10 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   {  
   "email": your email,  
   "password": your password"  
-  }  
-  Returns:  
+  }
+```
+Returns:
+```
   {  
   "ID": your userID  
   "email": your email  
@@ -45,8 +47,10 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   {  
   "email": your email,  
   "password": your password"  
-  }  
-  Returns:  
+  }
+```
+Returns: 
+```
   {  
   "ID": your userID  
   "email": your email  
@@ -60,8 +64,10 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   Header:  
   {  
   "Authorization": Bearer your ACCESS token
-  }  
-  Returns:  
+  }
+```
+Returns:
+```
   {  
   "ID": your userID  
   "email": your email  
@@ -77,9 +83,10 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
             "user_id": 1  
           },  
     "event": "user.payment_failed"  
-}  
-   
-  Returns:  
+}
+```
+Returns: 
+```
   Status code 200  
 ```
 - Chirp Create (POST localhost:8080/api/chirps)
@@ -87,8 +94,10 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   Header:  
   {  
   "Authorization": Bearer your ACCESS token  
-  }  
-  Returns:  
+  }
+```
+Returns:
+```
   {  
   "ID": chirpID  
   "Body": the chirp  
@@ -100,8 +109,10 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   Header:  
   {  
   "Authorization": Bearer your ACCESS token  
-  }  
-  Returns:  
+  }
+```
+Returns:  
+```
   {  
   "ID": chirpID  
   "Body": the chirp  
@@ -114,8 +125,9 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   {  
   "Authorization": Bearer your ACCESS token  
   }   
-
-  Returns:  
+```
+Returns: 
+```
   {  
   "ID": chirpID  
   "Body": the chirp  
@@ -127,8 +139,10 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   Header:  
   {  
   "Authorization": Bearer your ACCESS token  
-  }  
-  Returns:  
+  }
+```
+Returns:
+```
   Status code 200  
 ```
 - Retrieve new ACCESS token (DELETE localhost:8080/api/refresh)
@@ -136,8 +150,10 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   Header:  
   {  
   "Authorization": Bearer your REFRESH token  
-  }  
-  Returns:  
+  }
+```
+Returns:
+```
   {  
   "ID": chirpID  
   "Body": the chirp  
@@ -149,8 +165,10 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
   Header:  
   {  
   "Authorization": Bearer your REFRESH token  
-  }  
-  Returns:  
+  }
+```
+Returns:
+```
   Status code 200  
 ```
 - Metrics (localhost:8080/api/healthz)  
