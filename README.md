@@ -1,12 +1,20 @@
 # chirpy
 
-A twitter clone backend built using Golang. To run, use go build --o && ./out and navigate to localhost:8080/app in your browser.
+A twitter clone backend built using Golang. 
 
-To run certain APIs, you will need to generate your own JWT Secret to retrieve an access and refresh token. A fake polka secret can be created to run the API to upgrade a user to a paid subscription. Both tokens need to be added to a local .env file.  
+## Important information before running
+To run certain APIs, you will need to generate your own JWT Secret to retrieve an access and refresh token. A fake polka secret can be created to run the API to upgrade a user to a paid subscription. Both tokens need to be added to a local .env file. 
 
 ## .env variables
 - JWT_SECRET=
 - POLKA_SECRET=
+
+# Getting Started
+To run:
+- Clone the repository locally
+- Create a .env file with the variables as listed above
+- Use go build --o && ./out and navigate to localhost:8080/app in your browser
+- Using an API platform (Such as PostMan or Thunder Client), call each API using the below JSON Body or Header
 
 ## Supported features
 - Create a User
