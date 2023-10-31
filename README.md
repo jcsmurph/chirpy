@@ -82,7 +82,7 @@ Returns:
           {  
             "user_id": 1  
           },  
-    "event": "user.payment_failed"  
+    "event": "user.upgraded"  
 }
 ```
 Returns: 
