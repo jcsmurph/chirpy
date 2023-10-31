@@ -13,7 +13,7 @@ To run certain APIs, you will need to generate your own JWT Secret to retrieve a
 To run:
 - Clone the repository locally
 - Create a .env file with the variables as listed above
-- Use go build --o && ./out and navigate to localhost:8080/app in your browser
+- Use go build --o out && ./out and navigate to localhost:8080/app in your browser
 - Using an API platform (Such as PostMan or Thunder Client), call each API using the below JSON Body or Header
 
 ## Supported features
